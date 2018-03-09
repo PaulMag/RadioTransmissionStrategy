@@ -24,15 +24,22 @@ void ABaseUnit::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	for (ABaseUnit* enemyUnit : overlappingEnemies)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Dealing damage"));
-		enemyUnit->takeDamage(5 * DeltaTime);
+		enemyUnit->takeDamage(damagePerSecond * DeltaTime);
 	}
 }
 
 void ABaseUnit::takeDamage(float damageAmount)
 {
-	UE_LOG(LogTemp, Warning, TEXT("TAKING damage"));
 	strength -= damageAmount * (2 - organization);
+	if (strength <= 0)
+	{
+		for (ABaseUnit* enemyUnit : overlappingEnemies)
+		{
+			enemyUnit->NotifyActorEndOverlap(this);
+			// Remove self from any overlapping lists.
+		}
+		Destroy();
+	}
 }
 
 /*

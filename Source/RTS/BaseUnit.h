@@ -19,14 +19,17 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	bool bIsEnemy;
+	float damagePerSecond = 10.;
+	TArray<ABaseUnit*> overlappingEnemies;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int factionNumber;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float strength = 200.;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float organization = 1.0;
-	TArray<ABaseUnit*> overlappingEnemies;
 
 	void takeDamage(float damageAmount);
 	//void ReceiveAnyDamage(float Damage, UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
