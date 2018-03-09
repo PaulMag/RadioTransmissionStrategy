@@ -9,5 +9,6 @@ _BuildData.uasset
 # Visual Studio generated files
 .vs/
 *.VC.db
+*.sln
 
 Import/*
