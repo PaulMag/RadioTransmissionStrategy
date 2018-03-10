@@ -8,7 +8,7 @@ ABaseUnit::ABaseUnit()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	damageModifiers.Init(1.0, 4);  // enum { default = 0, infantry = 1, cavalry = 2, armor = 3 };
 }
 
 // Called when the game starts or when spawned
@@ -24,7 +24,8 @@ void ABaseUnit::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	for (ABaseUnit* enemyUnit : overlappingEnemies)
 	{
-		enemyUnit->takeDamage(damagePerSecond * DeltaTime);
+		float damage = damageModifiers[enemyUnit->unitType] * damagePerSecond * DeltaTime;
+		enemyUnit->takeDamage(damage);
 	}
 }
 

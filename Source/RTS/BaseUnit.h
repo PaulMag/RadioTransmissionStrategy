@@ -18,10 +18,18 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	
+	enum { default = 0, infantry = 1, cavalry = 2, armor = 3 };
 
 	float damagePerSecond = 10.;
 	TArray<ABaseUnit*> overlappingEnemies;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<float> damageModifiers;  // initialized in constructor
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int unitType = default;  // must be overwritten with "infantry, "cavalry", or "armor"
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int factionNumber;
 	
